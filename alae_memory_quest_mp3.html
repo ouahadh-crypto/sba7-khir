@@ -1,0 +1,920 @@
+<!doctype html>
+<html lang="ary">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>For Alae 💛</title>
+  <style>
+    :root{
+      --bg0:#070a14;
+      --bg2:#1b1f3a;
+      --glass:#0f1630cc;
+      --stroke:#ffffff22;
+      --text:#f3f6ff;
+      --muted:#b7c3ff;
+      --gold:#ffd36a;
+      --pink:#ff7aa2;
+      --cyan:#62e6ff;
+      --shadow:#0009;
+      --ok:#6dffb0;
+      --bad:#ff6d6d;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% 20%, #2d3cff2b, transparent 60%),
+        radial-gradient(900px 700px at 90% 30%, #ff7aa22b, transparent 60%),
+        radial-gradient(1000px 800px at 60% 90%, #62e6ff22, transparent 60%),
+        linear-gradient(160deg, var(--bg0), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    /* stars */
+    .stars, .stars::before, .stars::after{
+      content:"";
+      position:fixed; inset:-200px;
+      pointer-events:none;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, #fff9, transparent),
+        radial-gradient(1px 1px at 30% 80%, #fff7, transparent),
+        radial-gradient(1px 1px at 55% 35%, #fff7, transparent),
+        radial-gradient(1px 1px at 70% 60%, #fff6, transparent),
+        radial-gradient(1px 1px at 90% 15%, #fff8, transparent),
+        radial-gradient(1px 1px at 82% 82%, #fff7, transparent),
+        radial-gradient(1px 1px at 20% 55%, #fff6, transparent),
+        radial-gradient(1px 1px at 45% 10%, #fff7, transparent);
+      filter: drop-shadow(0 0 8px #fff3);
+      opacity:.85;
+      animation: twinkle 5s ease-in-out infinite alternate;
+    }
+    .stars::before{ opacity:.55; transform: scale(1.2); animation-duration:7s }
+    .stars::after{ opacity:.35; transform: scale(1.35); animation-duration:9s }
+    @keyframes twinkle{ from{opacity:.55} to{opacity:.95} }
+
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding:16px;
+      padding-bottom:92px; /* space for banner */
+    }
+
+    .card{
+      width:min(980px, 96vw);
+      background:var(--glass);
+      border:1px solid var(--stroke);
+      border-radius:26px;
+      padding:18px 18px 16px;
+      box-shadow: 0 25px 90px var(--shadow);
+      backdrop-filter: blur(12px);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .shine{
+      position:absolute; inset:-40%;
+      background: linear-gradient(120deg, transparent 40%, #ffffff18 50%, transparent 60%);
+      transform: translateX(-60%) rotate(12deg);
+      animation: sweep 7s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes sweep{
+      0%, 55% { transform: translateX(-75%) rotate(12deg); opacity:.0 }
+      65% { opacity:.85 }
+      85% { transform: translateX(70%) rotate(12deg); opacity:.0 }
+      100%{ opacity:0 }
+    }
+
+    .top{
+      display:flex;
+      gap:10px;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid #ffffff2a;
+      background:#ffffff10;
+      color:var(--muted);
+      font-weight:650;
+      letter-spacing:.25px;
+      user-select:none;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: conic-gradient(from 0deg, var(--gold), var(--pink), var(--cyan), var(--gold));
+      box-shadow:0 0 14px #ffd36a66;
+      animation: spin 3.5s linear infinite;
+    }
+    @keyframes spin{ to{ transform:rotate(360deg) } }
+
+    .status{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid #ffffff2a;
+      background:#ffffff10;
+      color:var(--muted);
+      user-select:none;
+    }
+    .status b{ color:var(--text); }
+
+    h1{
+      margin:10px 0 6px;
+      font-size: clamp(24px, 5vw, 44px);
+      line-height:1.1;
+    }
+    .alae{
+      background: linear-gradient(90deg, var(--gold), var(--pink), var(--cyan));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      font-weight:900;
+    }
+    .sub{
+      margin:0 0 12px;
+      color:#eaf0ff;
+      opacity:.95;
+      line-height:1.6;
+      font-size: clamp(14px, 2.2vw, 16px);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:12px;
+      align-items:stretch;
+      margin-top:10px;
+    }
+    @media (max-width: 860px){ .grid{ grid-template-columns: 1fr; } }
+
+    .panel{
+      border:1px solid #ffffff1f;
+      background:#00000018;
+      border-radius:18px;
+      padding:14px 14px;
+      position:relative;
+      overflow:hidden;
+    }
+    .panelTitle{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+      color:var(--muted);
+      font-size:13px;
+      letter-spacing:.25px;
+      margin-bottom:10px;
+      user-select:none;
+    }
+
+    /* Stepper */
+    .stepper{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin:8px 0 2px;
+    }
+    .pill{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid #ffffff22;
+      background:#ffffff0e;
+      color:var(--muted);
+      font-size:13px;
+      user-select:none;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+    }
+    .pill .n{
+      width:20px;height:20px;border-radius:999px;
+      display:grid;place-items:center;
+      background:#ffffff14;
+      border:1px solid #ffffff1f;
+      color:var(--text);
+      font-weight:900;
+      font-size:12px;
+    }
+    .pill.active{
+      color:var(--text);
+      border-color:#ffffff33;
+      background:#ffffff16;
+    }
+    .pill.done{
+      border-color:#6dffb055;
+      background:#6dffb014;
+      color:#d6ffe8;
+    }
+
+    .progress{
+      margin-top:10px;
+      height:10px;
+      border-radius:999px;
+      background:#ffffff12;
+      border:1px solid #ffffff1c;
+      overflow:hidden;
+    }
+    .progress > div{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, var(--cyan), var(--pink), var(--gold));
+      border-radius:999px;
+      box-shadow:0 0 18px #62e6ff33;
+      transition: width .4s ease;
+    }
+
+    /* Forms */
+    .q{
+      margin:0 0 10px;
+      font-size:16px;
+      line-height:1.55;
+    }
+    .options{
+      display:grid;
+      gap:10px;
+    }
+    .opt{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid #ffffff20;
+      background:#ffffff0c;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .08s ease, filter .2s ease, border-color .2s ease;
+    }
+    .opt:hover{ filter: brightness(1.05); }
+    .opt:active{ transform: translateY(1px) scale(.99); }
+    .opt input{ accent-color: #ffd36a; }
+    .opt b{ color:var(--text); }
+    .opt small{ color:var(--muted); display:block; margin-top:2px; }
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .field{
+      flex:1 1 120px;
+      min-width: 110px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    label{
+      color:var(--muted);
+      font-size:13px;
+      user-select:none;
+    }
+    input[type="number"], input[type="date"]{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid #ffffff22;
+      background:#00000022;
+      color:var(--text);
+      outline:none;
+      font-size:15px;
+    }
+    input::placeholder{ color:#c9d3ff66; }
+    input:focus{ border-color:#ffffff44; }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:12px;
+    }
+    button{
+      border:0;
+      padding:12px 14px;
+      border-radius:14px;
+      font-weight:900;
+      cursor:pointer;
+      transition: transform .08s ease, filter .2s ease;
+      user-select:none;
+    }
+    button:active{ transform: translateY(1px) scale(.99); }
+    .primary{
+      color:#0b1020;
+      background: linear-gradient(90deg, var(--gold), var(--pink));
+      box-shadow: 0 16px 40px #ff7aa233;
+    }
+    .ghost{
+      color:var(--text);
+      background:#ffffff10;
+      border:1px solid #ffffff22;
+    }
+    .primary:hover,.ghost:hover{ filter: brightness(1.05); }
+
+    .toast{
+      margin-left:auto;
+      color:var(--muted);
+      font-size:13px;
+      user-select:none;
+    }
+    .ok{ color: #6dffb0; font-weight:800; }
+    .bad{ color: #ff6d6d; font-weight:800; }
+
+    .hidden{ display:none !important; }
+
+    /* banner (audio) */
+    .banner{
+      position:fixed;
+      left:12px; right:12px; bottom:12px;
+      z-index:998;
+      border:1px solid #ffffff28;
+      background:#0f1630e6;
+      border-radius:16px;
+      box-shadow: 0 18px 60px #000a;
+      backdrop-filter: blur(10px);
+    }
+    .bannerInner{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px 10px;
+      flex-wrap:wrap;
+    }
+    .bTitle{ font-weight:900; color:var(--text); }
+    .bText{ color:var(--muted); font-size:13px; opacity:.95; }
+    .bBtn{
+      border:0;
+      padding:10px 12px;
+      border-radius:12px;
+      font-weight:900;
+      cursor:pointer;
+      color:#0b1020;
+      background: linear-gradient(90deg, var(--gold), var(--pink));
+      transition: transform .08s ease, filter .2s ease;
+      user-select:none;
+    }
+    .bBtn:active{ transform: translateY(1px) scale(.99) }
+    .bBtn:hover{ filter: brightness(1.05) }
+    .ghostBtn{
+      color:var(--text);
+      background:#ffffff10;
+      border:1px solid #ffffff22;
+    }
+    @media (max-width: 420px){
+      .bannerInner{ gap:8px; }
+      .bText{ flex: 1 1 100%; }
+    }
+
+    /* hearts */
+    .float{
+      position:fixed;
+      bottom:-60px;
+      pointer-events:none;
+      opacity:0;
+      filter: drop-shadow(0 0 10px #ff7aa255);
+      animation: floatUp var(--dur) linear var(--delay) forwards;
+      left: var(--x);
+      font-size: var(--size);
+      z-index: 999;
+    }
+    @keyframes floatUp{
+      0%{ transform: translateY(0) translateX(0) rotate(0deg) scale(.9); opacity:0 }
+      10%{ opacity:.95 }
+      100%{ transform: translateY(-115vh) translateX(var(--drift)) rotate(var(--rot)) scale(1.25); opacity:0 }
+    }
+
+    /* shake for "No" */
+    .shake{ animation: shake .35s ease-in-out; }
+    @keyframes shake{
+      0%{ transform: translateX(0) }
+      20%{ transform: translateX(-8px) }
+      40%{ transform: translateX(8px) }
+      60%{ transform: translateX(-6px) }
+      80%{ transform: translateX(6px) }
+      100%{ transform: translateX(0) }
+    }
+
+    /* typewriter caret */
+    .caret{
+      display:inline-block;
+      width:10px;
+      margin-left:2px;
+      border-right:2px solid #ffffffaa;
+      animation: blink .9s step-end infinite;
+      translate: 0 2px;
+    }
+    @keyframes blink{ 50%{ opacity:0 } }
+
+    /* Centered reading view */
+    .readingOverlay{
+      position:fixed;
+      inset:0;
+      z-index: 1000;
+      display:none;
+      place-items:center;
+      padding:16px;
+      background: radial-gradient(900px 600px at 50% 35%, #ffffff12, #000000cc);
+      backdrop-filter: blur(8px);
+    }
+    .readingCard{
+      width:min(880px, 96vw);
+      max-height: min(78vh, 720px);
+      overflow:auto;
+      border-radius:24px;
+      border:1px solid #ffffff28;
+      background:#0f1630f0;
+      box-shadow:0 30px 100px #000c;
+      padding:18px 16px;
+    }
+    .readingTitle{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:10px;
+      color:var(--muted);
+      font-size:13px;
+      letter-spacing:.2px;
+    }
+    .readingCard p{
+      margin:0;
+      font-size: clamp(15px, 2.2vw, 18px);
+      line-height:1.85;
+      white-space:pre-wrap;
+    }
+    .readingActions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stars"></div>
+
+  <!-- Put song.mp3 in the SAME folder as this HTML -->
+  <audio id="audio" src="song.mp3" preload="auto" autoplay loop></audio>
+
+  <div class="banner" id="banner" role="dialog" aria-live="polite">
+    <div class="bannerInner">
+      <span class="bTitle" id="audioTitle">🎵 Music</span>
+      <span class="bText" id="audioText">Trying to play…</span>
+      <button class="bBtn" id="playBtn">Play</button>
+      <button class="bBtn ghostBtn" id="muteBtn">Mute</button>
+      <button class="bBtn ghostBtn" id="hideBannerBtn" aria-label="Hide">✕</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <main class="card" role="main">
+      <div class="shine" aria-hidden="true"></div>
+
+      <div class="top">
+        <div class="badge">
+          <span class="dot" aria-hidden="true"></span>
+          <span>Memory Quest — for <b style="color:var(--text)">Alae</b> 💛</span>
+        </div>
+        <div class="status" title="Progress">
+          <span>🧩</span>
+          <span><b id="stepTxt">Step 1</b> / 4</span>
+        </div>
+      </div>
+
+      <h1>Sba7 lkhir, <span class="alae">Alae</span> 🌤️</h1>
+      <p class="sub">باش توصلك الmessage… خاصك دوزي 4 مراحل صغار 😄💛</p>
+
+      <div class="stepper" aria-hidden="true">
+        <div class="pill active" id="p1"><span class="n">1</span> Cadeau</div>
+        <div class="pill" id="p2"><span class="n">2</span> 7sabya</div>
+        <div class="pill" id="p3"><span class="n">3</span> 9obla</div>
+        <div class="pill" id="p4"><span class="n">4</span> Yes/No</div>
+      </div>
+
+      <div class="progress" aria-hidden="true"><div id="bar"></div></div>
+
+      <section class="grid">
+        <!-- LEFT: STEPS -->
+        <div class="panel" id="leftPanel">
+          <div class="panelTitle">
+            <span>🗺️ The stages</span>
+            <span id="stageLabel">Stage 1</span>
+          </div>
+
+          <!-- Step 1 -->
+          <div id="step1">
+            <p class="q">1) <b>awl cadeau jabolk tatawi cheno hwa ??</b></p>
+            <div class="options" role="radiogroup" aria-label="First gift">
+              <label class="opt">
+                <input type="radio" name="gift" value="choro" />
+                <div><b>Choro</b><small>اختيار 1</small></div>
+              </label>
+              <label class="opt">
+                <input type="radio" name="gift" value="snsla" />
+                <div><b>Snsla</b><small>اختيار 2</small></div>
+              </label>
+              <label class="opt">
+                <input type="radio" name="gift" value="choklat" />
+                <div><b>Choklat</b><small>اختيار 3</small></div>
+              </label>
+            </div>
+
+            <div class="actions">
+              <button class="primary" id="s1next">Nxt ➜</button>
+              <span class="toast" id="s1toast"></span>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div id="step2" class="hidden">
+            <p class="q">2) <b>مرحلة 7sbya</b> 😄 — حلّي هاد العمليات باش يخرج لك التاريخ:</p>
+
+            <div class="row">
+              <div class="field">
+                <label>Day (30 ÷ 2)</label>
+                <input type="number" id="day" placeholder="?" inputmode="numeric" />
+              </div>
+              <div class="field">
+                <label>Month (4 × 2)</label>
+                <input type="number" id="month" placeholder="?" inputmode="numeric" />
+              </div>
+              <div class="field">
+                <label>Year (405 × 5)</label>
+                <input type="number" id="year" placeholder="?" inputmode="numeric" />
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="primary" id="s2check">Check ✅</button>
+              <button class="ghost" id="s2back">⬅ رجع</button>
+              <span class="toast" id="s2toast"></span>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div id="step3" class="hidden">
+            <p class="q">3) <b>awl 9obla fo9ache kant?</b> 💋</p>
+            <div class="row">
+              <div class="field" style="flex:1 1 260px">
+                <label>Date</label>
+                <input type="date" id="kiss" />
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="primary" id="s3check">Nxt ➜</button>
+              <button class="ghost" id="s3back">⬅ رجع</button>
+              <span class="toast" id="s3toast"></span>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div id="step4" class="hidden">
+            <p class="q">4) <b>sf hnya… ktbghini wla la?</b></p>
+            <div class="actions">
+              <button class="primary" id="yesBtn">YES 💛</button>
+              <button class="ghost" id="noBtn">NO 🙃</button>
+              <span class="toast" id="s4toast"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: MESSAGE LOCK -->
+        <div class="panel">
+          <div class="panelTitle">
+            <span>💌 The message</span>
+            <span id="lockLabel">Locked 🔒</span>
+          </div>
+
+          <div id="locked">
+            <p style="margin:0;color:var(--muted);line-height:1.6">
+              كمّلي المراحل اللي فاليسار… و من بعد غادي يبان الmessage 💛
+            </p>
+          </div>
+
+          <div id="unlocked" class="hidden">
+            <p style="margin:0;color:var(--muted);line-height:1.6">
+              تفتح ✅ دابا كاين زر باش تقرايه فالوسط ب راحة.
+            </p>
+            <div class="actions">
+              <button class="primary" id="openReading">Open message ✨</button>
+              <button class="ghost" id="copyMsg">Copy 💾</button>
+              <button class="ghost" id="moreHearts">Hearts ✨</button>
+              <span class="toast" id="copyToast"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Center reading overlay -->
+  <div class="readingOverlay" id="readingOverlay">
+    <div class="readingCard">
+      <div class="readingTitle">
+        <span>💛 Message for Alae</span>
+        <button class="ghost" id="closeReading">Close</button>
+      </div>
+      <p id="finalMsg"></p>
+      <div class="readingActions">
+        <button class="primary" id="copyMsg2">Copy 💾</button>
+        <button class="ghost" id="moreHearts2">Hearts ✨</button>
+        <span class="toast" id="copyToast2"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // -------------------- AUDIO (song.mp3) --------------------
+    const audio = document.getElementById("audio");
+    const banner = document.getElementById("banner");
+    const audioTitle = document.getElementById("audioTitle");
+    const audioText = document.getElementById("audioText");
+    const playBtn = document.getElementById("playBtn");
+    const muteBtn = document.getElementById("muteBtn");
+    const hideBannerBtn = document.getElementById("hideBannerBtn");
+
+    function hideBanner(){ if (banner) banner.style.display = "none"; }
+
+    async function tryPlay(){
+      try{
+        await audio.play();
+        audioTitle.textContent = "🎵 Music playing";
+        audioText.textContent = "Enjoy 💛";
+        playBtn.textContent = "Playing";
+        playBtn.disabled = true;
+        setTimeout(hideBanner, 1200);
+      }catch(e){
+        audioTitle.textContent = "🎵 Music";
+        audioText.textContent = "Tap Play باش تبدأ";
+        playBtn.disabled = false;
+        playBtn.textContent = "Play";
+      }
+    }
+
+    // attempt autoplay
+    audio.muted = false;
+    tryPlay();
+
+    playBtn.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      await tryPlay();
+    });
+
+    muteBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      audio.muted = !audio.muted;
+      muteBtn.textContent = audio.muted ? "Unmute" : "Mute";
+    });
+
+    hideBannerBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      hideBanner();
+    });
+
+    // -------------------- HEARTS --------------------
+    function spawnHearts(count=10){
+      const emojis = ["💛","💖","💘","💞","✨","🌙","🌸","🫶","❤️","🫂"];
+      for(let i=0;i<count;i++){
+        const el = document.createElement("div");
+        el.className = "float";
+        el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+        el.style.setProperty("--x", (Math.random()*100) + "vw");
+        el.style.setProperty("--dur", (4 + Math.random()*3.2) + "s");
+        el.style.setProperty("--delay", (Math.random()*0.45) + "s");
+        el.style.setProperty("--size", (14 + Math.random()*22) + "px");
+        el.style.setProperty("--drift", ((Math.random()*120)-60) + "px");
+        el.style.setProperty("--rot", ((Math.random()*120)-60) + "deg");
+        document.body.appendChild(el);
+        setTimeout(()=>el.remove(), 9000);
+      }
+    }
+    setInterval(() => { if (!document.hidden) spawnHearts(1); }, 1100);
+
+    // -------------------- STEPS --------------------
+    let current = 1;
+    const bar = document.getElementById("bar");
+    const stepTxt = document.getElementById("stepTxt");
+    const stageLabel = document.getElementById("stageLabel");
+
+    const p1 = document.getElementById("p1");
+    const p2 = document.getElementById("p2");
+    const p3 = document.getElementById("p3");
+    const p4 = document.getElementById("p4");
+
+    const s1 = document.getElementById("step1");
+    const s2 = document.getElementById("step2");
+    const s3 = document.getElementById("step3");
+    const s4 = document.getElementById("step4");
+
+    function setPills(){
+      const pills = [p1,p2,p3,p4];
+      pills.forEach((p,i)=>{
+        const n = i+1;
+        p.classList.toggle("active", n===current);
+        p.classList.toggle("done", n<current);
+      });
+    }
+
+    function setProgress(){
+      const pct = ((current-1) / 4) * 100;
+      bar.style.width = pct + "%";
+      stepTxt.textContent = "Step " + current;
+      stageLabel.textContent = "Stage " + current;
+      setPills();
+    }
+
+    function showStep(n){
+      current = n;
+      s1.classList.toggle("hidden", n!==1);
+      s2.classList.toggle("hidden", n!==2);
+      s3.classList.toggle("hidden", n!==3);
+      s4.classList.toggle("hidden", n!==4);
+      setProgress();
+      spawnHearts(5);
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+
+    setProgress();
+
+    // Step 1 (correct: snsla)
+    const s1toast = document.getElementById("s1toast");
+    document.getElementById("s1next").addEventListener("click", () => {
+      const picked = document.querySelector('input[name="gift"]:checked')?.value;
+      if(!picked){
+        s1toast.innerHTML = '<span class="bad">خسّك تختار option 😄</span>';
+        return;
+      }
+      if(picked !== "snsla"){
+        s1toast.innerHTML = '<span class="bad">مممم… حاول/ي مرة أخرى 🫠</span>';
+        spawnHearts(4);
+        return;
+      }
+      s1toast.innerHTML = '<span class="ok">✅</span>';
+      setTimeout(()=>showStep(2), 350);
+    });
+
+    // Step 2 math (15/08/2025)
+    const s2toast = document.getElementById("s2toast");
+    document.getElementById("s2back").addEventListener("click", ()=>showStep(1));
+
+    document.getElementById("s2check").addEventListener("click", () => {
+      const d = Number(document.getElementById("day").value);
+      const m = Number(document.getElementById("month").value);
+      const y = Number(document.getElementById("year").value);
+
+      if(!d || !m || !y){
+        s2toast.innerHTML = '<span class="bad">عمّريهم كاملين 😄</span>';
+        return;
+      }
+      if(d===15 && m===8 && y===2025){
+        s2toast.innerHTML = '<span class="ok">✅ 15/08/2025</span>';
+        spawnHearts(12);
+        setTimeout(()=>showStep(3), 450);
+      }else{
+        s2toast.innerHTML = '<span class="bad">لا… جربي ثاني 🧠</span>';
+      }
+    });
+
+    // Step 3 kiss date (20/10/2025)
+    const s3toast = document.getElementById("s3toast");
+    document.getElementById("s3back").addEventListener("click", ()=>showStep(2));
+
+    document.getElementById("s3check").addEventListener("click", () => {
+      const v = document.getElementById("kiss").value; // yyyy-mm-dd
+      if(!v){
+        s3toast.innerHTML = '<span class="bad">دخّلي التاريخ 😄</span>';
+        return;
+      }
+      if(v !== "2025-10-20"){
+        s3toast.innerHTML = '<span class="bad">لا…</span>';
+        return;
+      }
+      s3toast.innerHTML = '<span class="ok">✅</span>';
+      spawnHearts(10);
+      setTimeout(()=>showStep(4), 350);
+    });
+
+    // Step 4 yes/no -> unlock
+    const leftPanel = document.getElementById("leftPanel");
+    const s4toast = document.getElementById("s4toast");
+    const locked = document.getElementById("locked");
+    const unlocked = document.getElementById("unlocked");
+    const lockLabel = document.getElementById("lockLabel");
+
+    const readingOverlay = document.getElementById("readingOverlay");
+    const finalMsgEl = document.getElementById("finalMsg");
+
+    const FINAL_MESSAGE =
+`tbrklah 3lik ✨ as2ila mchi chi 7aja s3iba 🤍 wlkin dkryat 3dima 💭 khel9ta m3ak  
+
+  ay l7da dwzta knchofa b7al gha bar7  dwzta 😭 wkha doz 3liha moda ⏳ , ntmna ani nkon 7aja mzyana 🌸 
+w atrtlk f 7yatk b chekl ijabi ❤️ w ani nkon dikra ma 3omrk tnsaha 💫 w khalitk t3iche 7aja bghyaha 🥺💖 , 
+wkha n3ya nktblk msgate 😮‍💨 kolom hdaf dyalom wa7d 🎯 nbynlk bli knbghik ❤️ w nkhela9 f 39li bihom m3ak dikra 💭 
+li nb9a 39l 3liha ta akhir l7da ❤️
+
+hda nhar jdid ☀️ nhar sbt 28/02/2026 📅
+ ntmna tkon fi9ti fr7ana 😊 w s3ida 😄 w 3icheti a7lam s3ida ✨💫 w inchalh nhar kal ydozlk mzyan 🤲
+w wa3r 🔥 , w b idn lah ana gha nkon m3ak 🫶 w ma gha nkhalikchi l7da 🤍.
+
+hd msage ma knktbolkche bche gha nbynlk bli knhtam bik 🤍 w hdi 7aja ntina 3rfaha 😊
+w ma t7tajchi t2kid ✅ w inma knktbolk 7it 3rfk ktfra7 😄 w ana ki 3jbni nrsm d7ka f wjhk 😁 w fr7a f 9lbk ❤️ 
+w 9lbk byad 🤍 w n9i ✨ 7nya fik bla 7dod 🫶 ya bkheto 9lbi ❤️ li faz bik 😍 w ya wilo 🥺 li ma 7an fik nas anwa3 toba 😞 
+w 7jar 🪨 kol wa7d 3ndo gha nfso 😔 la ma kontiche at9dilo msl7a ma ychofche fik 😕 
+w msla7a mchi drori tkon flos 💰 wla cheghol 💼 t9dr tl9aha gha d7ka 😄 w sf 😊
+
+fa mli tchof chi wa7d tbdl 3lik 😶 gha mojrd w9tk ⏳ 9l m3ah ma tsdmchi 😔 kntmna ma 3omrk tsdm fya ana 🥺🤍 
+kn7wl b ga3 toro9 🔄 ma n3sbkchi 😌 w ma nkhalikchi t7s b khaybat amal 😞 mn tijah dyali 🤍
+
+hdi 7yatk 🌿 ndk 7a9 dir fiha li bghiti 💪 sbar mchi le nas 😌 sbar le rask 🫶 bche twsal 🚀 w gha twsal ✅ 
+w twri ay wa7d ma t9chi fik 😤 w awl khotwa dymn kyna 👣 w hd l7da ta hya awl khotwa 🌟 kntmna ma nkonchi twlt 3lik 😅 
+mohim kml nhar dyalk bchewya 3lik 🌙 
+w ana m3ak 🫶 w 3omri nkhalik 🤍 .`;
+
+    function typewrite(el, text, speed=9){
+      el.textContent = "";
+      const caret = document.createElement("span");
+      caret.className = "caret";
+      el.appendChild(caret);
+      let i = 0;
+      const timer = setInterval(() => {
+        caret.insertAdjacentText("beforebegin", text[i] || "");
+        i++;
+        if(i >= text.length){
+          clearInterval(timer);
+          setTimeout(()=>caret.remove(), 500);
+        }
+      }, speed);
+    }
+
+    document.getElementById("noBtn").addEventListener("click", () => {
+      s4toast.innerHTML = '<span class="bad">No? 😭</span>';
+      leftPanel.classList.remove("shake");
+      void leftPanel.offsetWidth;
+      leftPanel.classList.add("shake");
+      spawnHearts(6);
+    });
+
+    document.getElementById("yesBtn").addEventListener("click", () => {
+      s4toast.innerHTML = '<span class="ok">✅</span>';
+      spawnHearts(18);
+      locked.classList.add("hidden");
+      unlocked.classList.remove("hidden");
+      lockLabel.textContent = "Unlocked ✅";
+      bar.style.width = "100%";
+      p4.classList.add("done");
+
+      // Prepare message for reading overlay
+      typewrite(finalMsgEl, FINAL_MESSAGE, 9);
+    });
+
+    // Reading overlay open/close
+    document.getElementById("openReading").addEventListener("click", () => {
+      readingOverlay.style.display = "grid";
+      finalMsgEl.textContent = ""; // reset and re-type for nice effect
+      typewrite(finalMsgEl, FINAL_MESSAGE, 7);
+      spawnHearts(12);
+    });
+
+    document.getElementById("closeReading").addEventListener("click", () => {
+      readingOverlay.style.display = "none";
+    });
+
+    // Copy buttons
+    async function copyIt(toastEl){
+      try{
+        await navigator.clipboard.writeText(FINAL_MESSAGE);
+        toastEl.innerHTML = '<span class="ok">Copied ✅</span>';
+        spawnHearts(8);
+        setTimeout(()=>toastEl.textContent="", 1300);
+      }catch{
+        toastEl.innerHTML = '<span class="bad">Copy failed ⚠️</span>';
+      }
+    }
+
+    const copyToast = document.getElementById("copyToast");
+    document.getElementById("copyMsg").addEventListener("click", ()=>copyIt(copyToast));
+    document.getElementById("moreHearts").addEventListener("click", ()=>spawnHearts(20));
+
+    const copyToast2 = document.getElementById("copyToast2");
+    document.getElementById("copyMsg2").addEventListener("click", ()=>copyIt(copyToast2));
+    document.getElementById("moreHearts2").addEventListener("click", ()=>spawnHearts(20));
+  </script>
+</body>
+</html>
